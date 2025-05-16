@@ -23,7 +23,7 @@ export const app = express();
 config({ path: "./config/config.env" }); 
 app.use(
   cors({
-    origin: "ttps://bookworm-library.vercel.app",
+    origin: "https://bookworm-library.vercel.app",
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
