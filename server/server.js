@@ -12,7 +12,7 @@ app.use(cookieParser()); // ✅ MUST BE ADDED before routes
 // Configure CORS to allow frontend requests
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: "ttps://bookworm-library.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
