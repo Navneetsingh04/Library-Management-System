@@ -122,6 +122,8 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
     res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
+        secure: true,
+        sameSite: "None",
     });
     res.status(200).json({
         success: true,
@@ -154,7 +156,7 @@ export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     const resetToken =  user.generatePasswordResetToken();
 
     await user.save({ validateBeforeSave: false });
-    const resetPasswordUrl = `http://localhost:5173/password/reset/${resetToken}`;
+    const resetPasswordUrl = `https://bookworm-library.vercel.app/password/reset/${resetToken}`;
     // console.log(resetPasswordUrl)
 
     const message = generateForgotPasswordEmailTemplate(resetPasswordUrl);

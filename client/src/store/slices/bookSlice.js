@@ -49,7 +49,7 @@ const bookSlice = createSlice({
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
   try {
-    const response = await axios.get("http://localhost:4000/api/v1/book/all", {
+    const response = await axios.get("https://bookworm-server-ff22.onrender.com/api/v1/book/all", {
       withCredentials: true,
     });
     dispatch(bookSlice.actions.fetchBooksSuccess(response.data.books));
@@ -70,7 +70,7 @@ export const addBook = (bookData) => async (dispatch) => {
   dispatch(bookSlice.actions.addBookRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/book/admin/add",
+      "https://bookworm-server-ff22.onrender.com/api/v1/book/admin/add",
       bookData,
       {
         withCredentials: true,

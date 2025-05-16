@@ -148,7 +148,7 @@ export const resetSlice = () => (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
     dispatch(authSlice.actions.registerRequest());
-    await axios.post(`http://localhost:4000/api/v1/auth/register`, data, {
+    await axios.post(`https://bookworm-server-ff22.onrender.com/api/v1/auth/register`, data, {
         withCredentials: true,
         headers: {
             "Content-Type": "application/json",
@@ -163,7 +163,7 @@ export const register = (data) => async (dispatch) => {
 export const OTPVerification = (email, otp) => async (dispatch) => {
     try {
         dispatch(authSlice.actions.OTPVerificationRequest());
-        const res = await axios.post(`http://localhost:4000/api/v1/auth/verifyOTP`, {email, otp}, {
+        const res = await axios.post(`https://bookworm-server-ff22.onrender.com/api/v1/auth/verifyOTP`, {email, otp}, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
@@ -183,7 +183,7 @@ export const OTPVerification = (email, otp) => async (dispatch) => {
 export const login = (data) => async (dispatch) => {
     try {
       dispatch(authSlice.actions.loginRequest());
-      const res = await axios.post(`http://localhost:4000/api/v1/auth/login`, data, {
+      const res = await axios.post(`https://bookworm-server-ff22.onrender.com/api/v1/auth/login`, data, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export const login = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
         dispatch(authSlice.actions.logoutRequest());
-        const res = await axios.get(`http://localhost:4000/api/v1/auth/logout`, {
+        const res = await axios.get(`https://bookworm-server-ff22.onrender.com/api/v1/auth/logout`, {
             withCredentials: true,
         });
         
@@ -221,7 +221,7 @@ export const logout = () => async (dispatch) => {
 export const getUser = () => async (dispatch) => {
     try {
         dispatch(authSlice.actions.getUserRequest());
-        const res = await axios.get(`http://localhost:4000/api/v1/auth/me`, {
+        const res = await axios.get(`https://bookworm-server-ff22.onrender.com/api/v1/auth/me`, {
             withCredentials: true,
         });
         
@@ -238,7 +238,7 @@ export const getUser = () => async (dispatch) => {
 export const forgotPassword = (email) => async (dispatch) => {
     try {
         dispatch(authSlice.actions.forgotPasswordRequest());
-        const res = await axios.post(`http://localhost:4000/api/v1/auth/password/forgot`, {email}, {
+        const res = await axios.post(`https://bookworm-server-ff22.onrender.com/api/v1/auth/password/forgot`, {email}, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
@@ -259,7 +259,7 @@ export const resetPassword = (data, token) => async (dispatch) => {
     try {
         dispatch(authSlice.actions.resetPasswordRequest());
 
-        const res = await axios.put(`http://localhost:4000/api/v1/auth/password/reset/${token}`, data, {
+        const res = await axios.put(`https://bookworm-server-ff22.onrender.com/api/v1/auth/password/reset/${token}`, data, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
@@ -282,7 +282,7 @@ export const resetPassword = (data, token) => async (dispatch) => {
 export const updatePassword = (data) => async (dispatch) => {
     try {
         dispatch(authSlice.actions.updatePasswordRequest());
-        const res = await axios.put(`http://localhost:4000/api/v1/auth/password/update`, data, {
+        const res = await axios.put(`https://bookworm-server-ff22.onrender.com/api/v1/auth/password/update`, data, {
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
