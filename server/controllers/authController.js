@@ -206,30 +206,34 @@ export  const resetPassword = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-export const updatePassword = catchAsyncErrors(async(req,res,next) => {
-    console.log("Request Body:", req.body);
-    console.log("User from req:", req.user);
-    const user = await User.findById(req.user).select("+password");
+export const updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user._id).select("+password"); // 🛠️ Fix here
     if (!user) {
         return next(new ErrorHandler("User not found", 404));
     }
-    const {currentPassword, newPassword,confirmNewPassword} = req.body;
-    if(!currentPassword || !newPassword || !confirmNewPassword){
+
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
         return next(new ErrorHandler("Please enter all the fields", 400));
     }
+
     const isPasswordMatched = await bcrypt.compare(currentPassword, user.password);
-    if(!isPasswordMatched){
-        return next(new ErrorHandler("Current password is Incorrect", 400));
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Current password is incorrect", 400));
     }
-    if(newPassword.length < 8 || newPassword.length > 20 || confirmNewPassword.length < 8 || confirmNewPassword.length > 20){
+
+    if (newPassword.length < 8 || newPassword.length > 20 || confirmNewPassword.length < 8 || confirmNewPassword.length > 20) {
         return next(new ErrorHandler("Password must be at least 8 characters long.", 400));
     }
-    if(newPassword !== confirmNewPassword){
-        return next(new ErrorHandler("New Password and confirm new Passworddo do not match.", 400));
+
+    if (newPassword !== confirmNewPassword) {
+        return next(new ErrorHandler("New Password and Confirm Password do not match.", 400));
     }
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
+
+    user.password = await bcrypt.hash(newPassword, 10);
     await user.save();
+
     res.status(200).json({
         success: true,
         message: "Password updated successfully",
